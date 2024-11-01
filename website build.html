@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Website Builder</title>
+  <style>
+    body {
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    header {
+      background: #333;
+      color: #fff;
+      padding: 20px;
+    }
+    
+    #container {
+      flex-grow: 1;
+      display: flex;
+      overflow: hidden;
+    }
+    
+    #code-editor-container,
+    #preview-container {
+      flex-grow: 1;
+      overflow: auto;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      margin: 10px;
+    }
+    
+    #code-editor {
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      border: none;
+      padding: 10px;
+      font-family: monospace;
+      font-size: 12px;
+      resize: none;
+      overflow: auto;
+    }
+    
+    #preview-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    #warning-box {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #f44336;
+      color: white;
+      padding: 20px;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Website Builder</h1>
+  </header>
+  <div id="container">
+    <div id="code-editor-container">
+      <textarea id="code-editor"></textarea>
+    </div>
+    <div id="preview-container">
+      <iframe id="preview-frame"></iframe>
+      <div id="warning-box">
+        <p>Copyright not owned.</p>
+      </div>
+    </div>
+  </div>
+<center><b><p> code owned by Adarsh</p></b></center>
+  <script>
+    window.onload = function() {
+      var codeEditor = document.getElementById('code-editor');
+      var previewFrame = document.getElementById('preview-frame');
+      var warningBox = document.getElementById('warning-box');
+      
+      // Check for creator name and enable game if it's Adarsh
+      const paragraphs = document.querySelectorAll('p');
+      let hasCreatorName = false;
+
+      paragraphs.forEach(p => {
+        if (p.textContent.includes('code owned by Adarsh')) {
+          hasCreatorName = true;
+        }
+      });
+
+      codeEditor.addEventListener('input', function() {
+        var code = codeEditor.value;
+        if (hasCreatorName) {
+          previewFrame.contentDocument.open();
+          previewFrame.contentDocument.write(code);
+          previewFrame.contentDocument.close();
+          warningBox.style.display = 'none';
+        } else {
+          warningBox.style.display = 'block';
+        }
+      });
+    };
+  </script>
+</body>
+</html>
